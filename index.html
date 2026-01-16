@@ -180,17 +180,29 @@
 
         // Spawn food at random location
         function spawnFood() {
-            food = {
-                x: Math.floor(Math.random() * TILE_COUNT),
-                y: Math.floor(Math.random() * TILE_COUNT)
-            };
+            let maxAttempts = 100;
+            let attempts = 0;
+            
+            while (attempts < maxAttempts) {
+                food = {
+                    x: Math.floor(Math.random() * TILE_COUNT),
+                    y: Math.floor(Math.random() * TILE_COUNT)
+                };
 
-            // Make sure food doesn't spawn on snake
-            for (let segment of snake) {
-                if (segment.x === food.x && segment.y === food.y) {
-                    spawnFood();
+                // Check if food doesn't spawn on snake
+                let onSnake = false;
+                for (let segment of snake) {
+                    if (segment.x === food.x && segment.y === food.y) {
+                        onSnake = true;
+                        break;
+                    }
+                }
+                
+                if (!onSnake) {
                     return;
                 }
+                
+                attempts++;
             }
         }
 
@@ -307,6 +319,7 @@
 
         // Handle keyboard input
         let inputQueue = [];
+        const movementKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'W', 'a', 'A', 's', 'S', 'd', 'D'];
         
         document.addEventListener('keydown', (e) => {
             if (!gameStarted && e.key !== ' ') {
@@ -323,8 +336,8 @@
                 return;
             }
 
-            // Queue input to prevent double-turns in same frame
-            if (inputQueue.length < 2) {
+            // Queue only movement keys to avoid unnecessary processing
+            if (movementKeys.includes(e.key) && inputQueue.length < 2) {
                 inputQueue.push(e.key);
             }
         });
