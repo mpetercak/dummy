@@ -20,6 +20,32 @@ A simple, classic Snake game built with plain HTML, CSS, and JavaScript.
 
 ## Running the Game
 
+### Option 1: Using npm (Recommended)
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Start the server:
+   ```bash
+   npm start
+   ```
+
+3. Open your browser and navigate to `http://localhost:8080`
+
+**Note:** The server runs on port 8080 by default. To run on port 80 (requires root/administrator privileges):
+```bash
+sudo npm run start:80
+```
+
+To run on a custom port, use the `-p` flag:
+```bash
+npx http-server -p 3000
+```
+
+### Option 2: Direct Browser Access
+
 Simply open `index.html` in any modern web browser. No installation or build process required!
 
 ## Controls
