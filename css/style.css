@@ -1,0 +1,352 @@
+:root {
+    /* Primary Colors */
+    --neon-green: #00FF00;
+    --lime-green: #7FFF00;
+    --forest-green: #0a3d0a;
+
+    /* Accent Colors */
+    --red-apple: #DC143C;
+    --red-neon: #FF0000;
+
+    /* Background */
+    --bg-dark: #0a1a1a;
+    --bg-teal: #001a1a;
+
+    /* Decorative */
+    --purple-flower: #9B59B6;
+    --pink-flower: #FF69B4;
+    --yellow-glow: #FFD700;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at center, #0a2a2a 0%, #001a1a 50%, #000000 100%);
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative jungle elements */
+body::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, var(--purple-flower) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.3;
+    animation: float 6s ease-in-out infinite;
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, var(--pink-flower) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.3;
+    animation: float 8s ease-in-out infinite;
+}
+
+/* Floating decorative elements */
+.jungle-decor {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.flower-left {
+    top: 20%;
+    left: 5%;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, var(--purple-flower) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(20px);
+    opacity: 0.4;
+    animation: float 7s ease-in-out infinite, pulse 3s ease-in-out infinite;
+}
+
+.flower-right {
+    top: 30%;
+    right: 5%;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, var(--pink-flower) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(20px);
+    opacity: 0.4;
+    animation: float 9s ease-in-out infinite 1s, pulse 4s ease-in-out infinite;
+}
+
+.glow-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--yellow-glow);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--yellow-glow);
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+.particle-1 { top: 15%; left: 15%; animation-delay: 0s; }
+.particle-2 { top: 25%; left: 85%; animation-delay: 0.5s; }
+.particle-3 { top: 70%; left: 10%; animation-delay: 1s; }
+.particle-4 { top: 80%; left: 90%; animation-delay: 1.5s; }
+.particle-5 { top: 40%; left: 8%; animation-delay: 2s; }
+.particle-6 { top: 60%; right: 8%; animation-delay: 2.5s; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.6; }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); }
+}
+
+@keyframes neon-glow {
+    0%, 100% {
+        box-shadow: 0 0 20px var(--neon-green),
+                    0 0 40px var(--neon-green),
+                    0 0 60px var(--neon-green);
+    }
+    50% {
+        box-shadow: 0 0 30px var(--neon-green),
+                    0 0 60px var(--neon-green),
+                    0 0 90px var(--neon-green);
+    }
+}
+
+@keyframes text-glow {
+    0%, 100% {
+        text-shadow: 0 0 10px var(--neon-green),
+                     0 0 20px var(--neon-green),
+                     0 0 30px var(--neon-green);
+    }
+    50% {
+        text-shadow: 0 0 20px var(--neon-green),
+                     0 0 40px var(--neon-green),
+                     0 0 60px var(--neon-green);
+    }
+}
+
+@keyframes red-glow {
+    0%, 100% {
+        box-shadow: 0 0 20px var(--red-neon),
+                    0 0 40px var(--red-neon),
+                    0 0 60px var(--red-neon);
+    }
+    50% {
+        box-shadow: 0 0 30px var(--red-neon),
+                    0 0 60px var(--red-neon),
+                    0 0 90px var(--red-neon);
+    }
+}
+
+.game-container {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    margin: 20px 0;
+    color: var(--lime-green);
+    font-size: 48px;
+    font-weight: bold;
+    text-shadow: 0 0 10px var(--neon-green),
+                 0 0 20px var(--neon-green),
+                 0 0 30px var(--neon-green),
+                 0 0 40px var(--neon-green);
+    animation: text-glow 2s ease-in-out infinite;
+}
+
+#gameCanvas {
+    border: 3px solid var(--neon-green);
+    background-color: #000;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 0 20px var(--neon-green),
+                0 0 40px var(--neon-green),
+                0 0 60px var(--neon-green),
+                inset 0 0 20px rgba(0, 255, 0, 0.1);
+    border-radius: 5px;
+    animation: neon-glow 3s ease-in-out infinite;
+}
+
+.score-board {
+    margin: 20px 0;
+    font-size: 24px;
+    color: var(--lime-green);
+    text-shadow: 0 0 10px var(--neon-green),
+                 0 0 20px var(--neon-green);
+    font-weight: bold;
+}
+
+.controls {
+    margin: 20px 0;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #aaa;
+}
+
+.controls p {
+    margin: 5px 0;
+}
+
+.controls strong {
+    color: var(--lime-green);
+    text-shadow: 0 0 5px var(--neon-green);
+}
+
+button {
+    margin: 10px 5px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: transparent;
+    color: var(--lime-green);
+    border: 2px solid var(--neon-green);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3),
+                inset 0 0 10px rgba(0, 255, 0, 0.1);
+    text-shadow: 0 0 5px var(--neon-green);
+}
+
+button:hover {
+    background-color: var(--neon-green);
+    color: #000;
+    box-shadow: 0 0 20px var(--neon-green),
+                0 0 40px var(--neon-green),
+                inset 0 0 20px rgba(0, 255, 0, 0.3);
+    text-shadow: none;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0px);
+    box-shadow: 0 0 10px var(--neon-green),
+                inset 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.game-over {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.95);
+    padding: 40px 50px;
+    border-radius: 15px;
+    border: 4px solid var(--red-neon);
+    text-align: center;
+    z-index: 1000;
+    box-shadow: 0 0 30px var(--red-neon),
+                0 0 60px var(--red-neon),
+                0 0 90px var(--red-neon),
+                inset 0 0 30px rgba(255, 0, 0, 0.1);
+    animation: red-glow 2s ease-in-out infinite;
+    backdrop-filter: blur(5px);
+}
+
+.game-over.show {
+    display: block;
+    animation: fadeIn 0.3s ease-in, red-glow 2s ease-in-out infinite 0.3s;
+}
+
+.game-over h2 {
+    color: var(--red-neon);
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 36px;
+    text-shadow: 0 0 10px var(--red-neon),
+                 0 0 20px var(--red-neon),
+                 0 0 30px var(--red-neon);
+}
+
+.game-over p {
+    font-size: 20px;
+    margin-bottom: 25px;
+    color: #fff;
+}
+
+.game-over button {
+    border-color: var(--neon-green);
+    color: var(--lime-green);
+    font-size: 18px;
+    padding: 14px 28px;
+}
+
+.game-over button:hover {
+    background-color: var(--neon-green);
+    color: #000;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 32px;
+    }
+
+    .score-board {
+        font-size: 18px;
+    }
+
+    .controls {
+        font-size: 14px;
+    }
+
+    #gameCanvas {
+        max-width: 90vw;
+        max-height: 90vw;
+    }
+
+    .game-over {
+        padding: 30px 40px;
+        max-width: 90vw;
+    }
+
+    .game-over h2 {
+        font-size: 28px;
+    }
+}
