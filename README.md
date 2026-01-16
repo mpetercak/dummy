@@ -36,12 +36,12 @@ A simple, classic Snake game built with plain HTML, CSS, and JavaScript.
 
 **Note:** The server runs on port 8080 by default. To run on port 80 (requires root/administrator privileges):
 ```bash
-sudo PORT=80 npm start
+sudo npm run start:80
 ```
 
-Or to run on any other port:
+To run on a custom port, use the `-p` flag:
 ```bash
-PORT=3000 npm start
+npx http-server -p 3000
 ```
 
 ### Option 2: Direct Browser Access
