@@ -128,6 +128,20 @@
         const gameOverElement = document.getElementById('gameOver');
         const finalScoreElement = document.getElementById('finalScore');
 
+        // Load snake head image
+        const snakeHeadImage = new Image();
+        snakeHeadImage.src = 'assets/snake-head.jpeg';
+        let imageLoaded = false;
+
+        snakeHeadImage.onload = function() {
+            imageLoaded = true;
+            console.log('Snake head image loaded successfully');
+        };
+
+        snakeHeadImage.onerror = function() {
+            console.error('Failed to load snake head image, using default rectangle');
+        };
+
         // Game constants
         const GRID_SIZE = 20;
         const TILE_COUNT = canvas.width / GRID_SIZE;
@@ -272,18 +286,44 @@
             // Draw snake
             snake.forEach((segment, index) => {
                 if (index === 0) {
-                    // Head
-                    ctx.fillStyle = '#4CAF50';
+                    // Head - draw image if loaded, otherwise use fallback
+                    if (imageLoaded) {
+                        const x = segment.x * GRID_SIZE;
+                        const y = segment.y * GRID_SIZE;
+
+                        // Calculate rotation angle based on direction
+                        let angle = 0;
+                        if (dx === 1) angle = 90;       // Moving right
+                        else if (dx === -1) angle = 270; // Moving left
+                        else if (dy === 1) angle = 180;  // Moving down
+                        else if (dy === -1) angle = 0;   // Moving up
+
+                        // Save context, rotate, draw, restore
+                        ctx.save();
+                        ctx.translate(x + GRID_SIZE / 2, y + GRID_SIZE / 2);
+                        ctx.rotate(angle * Math.PI / 180);
+                        ctx.drawImage(snakeHeadImage, -GRID_SIZE / 2, -GRID_SIZE / 2, GRID_SIZE, GRID_SIZE);
+                        ctx.restore();
+                    } else {
+                        // Fallback to original rectangle
+                        ctx.fillStyle = '#4CAF50';
+                        ctx.fillRect(
+                            segment.x * GRID_SIZE + 1,
+                            segment.y * GRID_SIZE + 1,
+                            GRID_SIZE - 2,
+                            GRID_SIZE - 2
+                        );
+                    }
                 } else {
-                    // Body
+                    // Body - keep original rectangle rendering
                     ctx.fillStyle = '#8BC34A';
+                    ctx.fillRect(
+                        segment.x * GRID_SIZE + 1,
+                        segment.y * GRID_SIZE + 1,
+                        GRID_SIZE - 2,
+                        GRID_SIZE - 2
+                    );
                 }
-                ctx.fillRect(
-                    segment.x * GRID_SIZE + 1,
-                    segment.y * GRID_SIZE + 1,
-                    GRID_SIZE - 2,
-                    GRID_SIZE - 2
-                );
             });
 
             // Draw food
